@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bill App</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav class="navbar sticky-top navbar-expand-sm navbar-light bg-light justify-content-right">
+  <a class="navbar-brand" href="./mainWindow.html"><img src="./assets/bootstrap-solid.svg" width="30" height="30" alt=""></a>
+  <a class="navbar-brand" href="./daybookWindow.html">DAY BOOK</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item ">
+        <a class="nav-link" href="./existWindow.html">EXISTING</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="./daybookWindow.html">DAYBOOK</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+  <div class="container">
+  </div>
+  <script type="script" src="node_modules/popper.js/dist/popper.min.js"></script>
+  <script type="script" src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="script" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+
+    document.querySelector('form').addEventListener('submit', submitForm);
+
+    function submitForm(e){
+      e.preventDefault();
+      const item = document.querySelector('#item').value;
+      console.log(ipcRenderer);
+      ipcRenderer.send('item:add', item);
+    }
+  </script>
+</body>
+</html>

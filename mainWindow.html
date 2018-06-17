@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bill App</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav class="navbar sticky-top navbar-expand-sm navbar-light bg-light">
+    <a class="navbar-brand" href="./mainWindow.html"><img src="./assets/bootstrap-solid.svg" width="30" height="30" alt=""></a>
+    <a class="navbar-brand" href="mainWindow.html">Billing App</a>
+  </nav>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-sm-12 col-md-4 col-xl-4">
+        <a href="./addWindow.html" class="btns btn btn-outline-light btn-block btn-lg mt-5">REGISTER NEW</a>
+      </div>
+      <div class="col-12 col-sm-12 col-md-4 col-xl-4">
+        <a href="./existWindow.html" class="btns btn btn-outline-light btn-block btn-lg mt-5">EXISTING</a>
+      </div>
+      <div class="col-12 col-sm-12 col-md-4 col-xl-4">
+        <a href="./daybookWindow.html" class="btns btn btn-outline-light btn-block btn-lg mt-5">DAY BOOK</a>
+      </div>
+    </div>
+  </div>
+  <ul></ul>
+  <script type="script" src="node_modules/popper.js/dist/popper.min.js"></script>
+  <script type="script" src="node_modules/jquery/dist/jquery.min.js"></script>
+  <script type="script" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script>
+    const electron = require('electron');
+    const {ipcRenderer} = electron;
+    const ul = document.querySelector('ul');
+
+    ipcRenderer.on('item:add', function(e, item){
+      ul.className = 'collection';
+      const li = document.createElement('li');
+      li.className = 'collection-item';
+      const itemText = document.createTextNode(item);
+
+      li.appendChild(itemText);
+      ul.appendChild(li);
+    });
+
+    ipcRenderer.on('item:clear', function(){
+      ul.className = '';
+      ul.innerHTML = '';
+    });
+
+    ul.addEventListener('dblclick', removeItem);
+
+    function removeItem(e){
+      event.target.remove();
+      if(ul.children.length == 0){
+        ul.className = '';
+      }
+    }
+  </script>
+</body>
+</html>
