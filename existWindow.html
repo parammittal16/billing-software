@@ -28,7 +28,7 @@
 			<div class="col-5 mt-2">
 				<form class="bg-light form-cont">
 					<div class="form-group form-inline mb-3">
-						<input type="text" class="form-control-plaintext" value="" autofocus>
+						<input id="item" type="text" class="form-control-plaintext" value="" autofocus>
 					</div>
 					<button style="width:100px;background-color: transparent;color:#fff;" class="btn btn-light btn-block mx-auto mt-1" type="submit">Search</button>
 				</form>
@@ -36,21 +36,37 @@
 		</div>
 		<hr>
 	</div>
+	<ul style="color: #fff;"></ul>
 	<script type="script" src="node_modules/popper.js/dist/popper.min.js"></script>
 	<script type="script" src="node_modules/jquery/dist/jquery.min.js"></script>
 	<script type="script" src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script>
 		const electron = require('electron');
 		const {ipcRenderer} = electron;
+		const ul = document.querySelector('ul');
 
 		document.querySelector('form').addEventListener('submit', submitForm);
 
 		function submitForm(e){
 			e.preventDefault();
 			const item = document.querySelector('#item').value;
-			console.log(ipcRenderer);
-			ipcRenderer.send('item:add', item);
+			ipcRenderer.send('search', item);
 		}
+		function zz(){
+		setTimeout(myF2,1000);
+		 function myF2(){
+		 	console.log('DONE');
+    ipcRenderer.on('search2', function(e, item){
+      ul.className = 'collection';
+      const li = document.createElement('li');
+      li.className = 'collection-item';
+      const itemText = document.createTextNode(item);
+
+      li.appendChild(itemText);
+      ul.appendChild(li);
+    });
+}
+  }
 	</script>
 </body>
 </html>

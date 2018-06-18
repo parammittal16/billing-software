@@ -2,14 +2,14 @@ const electron = require('electron');
 const path = require('path');
 const url = require('url');
 const Store = require('./store.js');
-
+const Search = require('./search.js');
 // SET ENV
 process.env.NODE_ENV = 'development';
 
 const {app, BrowserWindow, Menu, ipcMain} = electron;
 
 const store = new Store();
-
+const search = new Search();
 let mainWindow;
 
 // Listen for app to be ready
@@ -40,6 +40,10 @@ ipcMain.on('new_user', function(e, item){
   store.newUser(item);
   //mainWindow.webContents.send('item:add', item);
 });
+ipcMain.on('search', function(e,item){
+  search.findUser(item);
+  console.log('HO gaya')
+})
 
 // Create menu template
 const mainMenuTemplate =  [

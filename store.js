@@ -68,7 +68,7 @@ class Store {
           } else {
           }});
     }
-
+/*
 get(key) {
   return this.data[key];
 }
@@ -85,9 +85,9 @@ length() {
     // Also if we used an async API and our app was quit before the asynchronous write had a chance to complete,
     // we might lose that data. Note that in a real app, we would try/catch this.
     fs.appendFileSync(this.path, [JSON.stringify(this.data)]);
-  }
+  }*/
 }
-
+/*
 function parseDataFile(filePath, defaults) {
   // We'll try/catch it in case the file doesn't exist yet, which will be the case on the first application run.
   // `fs.readFileSync` will return a JSON string which we then parse into a Javascript object
@@ -97,7 +97,7 @@ function parseDataFile(filePath, defaults) {
     // if there was some kind of error, return the passed in defaults instead.
     return defaults;
   }
-}
+}*/
 
 // expose the class
 module.exports = Store;
