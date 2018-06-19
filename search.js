@@ -2,35 +2,76 @@ const electron = require('electron');
 const path = require('path');
 const fs = require('fs');
 const XlsxPopulate = require('xlsx-populate');
-var n, n2;
+var n, n3;
 
-class Store {
+class Search {
   constructor() {
+
+    fs.readFile('./Number2.txt', 'utf8', function(err, data) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(data);
+        n = data;
+    if(n == '') {
+      n3 = 1;
+      console.log("ud");
+      XlsxPopulate.fromBlankAsync()
+      .then(workbook => {
+        // Modify the workbook.
+        workbook.sheet("Sheet1").cell('A1').value('DATE');
+        workbook.sheet("Sheet1").cell('B1').value('TIME');
+        workbook.sheet("Sheet1").cell('C1').value('ID');
+        workbook.sheet("Sheet1").cell('D1').value('WORK');
+        workbook.sheet("Sheet1").cell('E1').value('INPUT');
+        // Write to file.
+        return workbook.toFileAsync('./data.xlsx');
+      });
+    }
+    else {
+      n3 = n;
+      console.log("d");
+      XlsxPopulate.fromFileAsync('./data.xlsx')
+      .then(workbook => {
+        // Modify the workbook.
+        workbook.sheet("Sheet1").cell('A1').value('DATE');
+        workbook.sheet("Sheet1").cell('B1').value('TIME');
+        workbook.sheet("Sheet1").cell('C1').value('ID');
+        workbook.sheet("Sheet1").cell('D1').value('WORK');
+        workbook.sheet("Sheet1").cell('E1').value('INPUT');
+        // Write to file.
+        return workbook.toFileAsync('./data.xlsx');
+      });
+    }
+  });
   }
   getNoUser() {
 
   }
 
   // This will just return the property on the `data` object
-  findUser(user) {
-    XlsxPopulate.fromFileAsync("./User.xlsx")
+  Record(date,time,id,work,income) {
+      console.log(n3);
+      console.log('beaver', typeof(id));
+    XlsxPopulate.fromFileAsync("./data.xlsx")
     .then(workbook => {
-      n = workbook.sheet(0).find(user);
-      console.log('n' + n);
-    }).catch((err) => {
+        // Modify the workbook.
+        workbook.sheet("Sheet1").cell(`A${n3}`).value(date);
+        workbook.sheet("Sheet1").cell(`B${n3}`).value(time);
+        workbook.sheet("Sheet1").cell(`C${n3}`).value(id);
+        workbook.sheet("Sheet1").cell(`D${n3}`).value(work);
+        workbook.sheet("Sheet1").cell(`E${n3}`).value(income);
+        // Write to file.
+        return workbook.toFileAsync("./data.xlsx");
+      }).catch((err) => {
       console.log('ssss'+ err);
     });
-    
-    setTimeout(myF,1000);
-    function myF(){
-      console.log('yoyoyo');
-      console.log(n);
-      console.log(n.length);
-      console.log(n[0]._row._node.attributes.r);
-      console.log(n[0]._columnNumber);
+      n3 = parseInt(n3) + 1;
+      fs.writeFile('./Number2.txt', n3, function (err) {
+          if (err) {
+          } else {
+          }});
     }
-  }
-
 /*
 get(key) {
   return this.data[key];
@@ -63,4 +104,4 @@ function parseDataFile(filePath, defaults) {
 }*/
 
 // expose the class
-module.exports = Store;
+module.exports = Search;

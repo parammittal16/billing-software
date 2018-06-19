@@ -54,3 +54,18 @@ input:focus {
 hr {
 	border-color: #fff;
 }
+#add > a {
+	color:#fff;
+	font-size: 20px;
+	text-decoration: none;
+	display: block;
+}
+h4{
+color:#fff;
+}
+.table-dark {
+	background-color: #0a0a0a;
+}
+.table{
+margin-bottom: 0;
+}

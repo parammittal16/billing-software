@@ -7,7 +7,7 @@ var n, n2;
 class Store {
   constructor() {
 
-    fs.readFile('Number.txt', 'utf8', function(err, data) {
+    fs.readFile('./Number.txt', 'utf8', function(err, data) {
         if (err) {
           console.log(err);
         }
@@ -24,13 +24,13 @@ class Store {
         workbook.sheet("Sheet1").cell('C1').value('Email');
         workbook.sheet("Sheet1").cell('D1').value('MOB');
         // Write to file.
-        return workbook.toFileAsync("./User.xlsx");
+        return workbook.toFileAsync('./User.xlsx');
       });
     }
     else {
       n2 = n;
       console.log("d");
-      XlsxPopulate.fromFileAsync("./User.xlsx")
+      XlsxPopulate.fromFileAsync('./User.xlsx')
       .then(workbook => {
         // Modify the workbook.
         workbook.sheet("Sheet1").cell('A1').value('ID');
@@ -38,7 +38,7 @@ class Store {
         workbook.sheet("Sheet1").cell('C1').value('Email');
         workbook.sheet("Sheet1").cell('D1').value('MOB');
         // Write to file.
-        return workbook.toFileAsync("./User.xlsx");
+        return workbook.toFileAsync('./User.xlsx');
       });
     }
   });
@@ -53,7 +53,7 @@ class Store {
     XlsxPopulate.fromFileAsync("./User.xlsx")
     .then(workbook => {
         // Modify the workbook.
-        workbook.sheet("Sheet1").cell(`A${n2}`).value(n2);
+        workbook.sheet("Sheet1").cell(`A${n2}`).value(`SJ${n2}`);
         workbook.sheet("Sheet1").cell(`B${n2}`).value(user[0]);
         workbook.sheet("Sheet1").cell(`C${n2}`).value(user[1]);
         workbook.sheet("Sheet1").cell(`D${n2}`).value(user[2]);
@@ -63,7 +63,7 @@ class Store {
       console.log('ssss'+ err);
     });
       n2 = parseInt(n2) + 1;
-      fs.writeFile('Number.txt', n2, function (err) {
+      fs.writeFile('./Number.txt', n2, function (err) {
           if (err) {
           } else {
           }});
