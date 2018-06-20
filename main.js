@@ -4,7 +4,7 @@ const url = require('url');
 const Store = require('./store.js');
 const Search = require('./search.js');
 // SET ENV
-process.env.NODE_ENV = 'development';
+process.env.NODE_ENV = 'production';
 
 const {app, BrowserWindow, Menu, ipcMain} = electron;
 
@@ -50,18 +50,6 @@ const mainMenuTemplate =  [
   {
     label: 'File',
     submenu:[
-      {
-        label:'Add Item',
-        click(){
-          createAddWindow();
-        }
-      },
-      {
-        label:'Clear Items',
-        click(){
-          mainWindow.webContents.send('item:clear');
-        }
-      },
       {
         label: 'Quit',
         accelerator:process.platform == 'darwin' ? 'Command+Q' : 'Ctrl+Q',
