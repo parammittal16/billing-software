@@ -37,6 +37,9 @@ button{
 			</ul>
 		</div>
 	</nav>
+	<div id="loading" style="display: none;">
+    <img src="./assets/spin.gif">
+  </div>
 	<br><br>
 	<div class="container-fluid">
 		<div class="row">
@@ -102,6 +105,7 @@ button{
 		document.querySelector('form').addEventListener('submit', submitForm);
 
 		function submitForm(e){
+			document.getElementById("loading").style.display = "block";
 			e.preventDefault();
 			const user = document.querySelector('#item').value;
 			console.log(user);
@@ -142,6 +146,7 @@ button{
 						}
 					}
 				}
+				document.getElementById("loading").style.display = "none";
 			}
 			/*ipcRenderer.on('search2', function(e, item){
 				ul.className = 'collection';
@@ -156,6 +161,7 @@ button{
 		}
 
 		function detailsOf(person_id, person_name){
+			document.getElementById("loading").style.display = "block";
 			console.log(person_id,person_name);
 			console.log('yoyoy'); 
 			console.log(typeof(person_id));
@@ -211,6 +217,7 @@ button{
 						}
 					}
 				}
+				document.getElementById("loading").style.display = "none";
 			}
 		}
 		function setdatetime(){
@@ -224,6 +231,7 @@ button{
 			document.getElementById('time_field').value = time;
 		}
 		function addRecord(){
+			document.getElementById("loading").style.display = "block";
 			let s_date = document.querySelector('#date_field').value;
 			let s_time = document.querySelector('#time_field').value;
 			let s_id = document.getElementById('p_id').innerHTML;
@@ -231,6 +239,14 @@ button{
 			let s_income = document.querySelector('#income_field').value;
 			console.log(s_date,s_time,s_id,s_work,s_income);
 			search.Record(s_date,s_time,s_id,s_work,s_income);
+			setTimeout(hide,1000);
+			function hide(){
+				document.getElementById("loading").style.display = "none";
+				let node = document.createElement("h4");
+					let textnode = document.createTextNode( `DONE`);
+					node.appendChild(textnode);
+					document.getElementById("add2").appendChild(node);
+			}
 		}
 	</script>
 </body>

@@ -23,6 +23,9 @@
       </ul>
     </div>
   </nav>
+  <div id="loading" style="display: none;">
+    <img src="./assets/spin.gif">
+  </div>
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-10 col-sm-10 col-lg-5 col-xl-5 mt-4">
@@ -44,6 +47,8 @@
         </form>
       </div>
     </div>
+    <div id="add2" style="text-align: center;">
+        </div>
   </div>
   <script type="script" src="node_modules/popper.js/dist/popper.min.js"></script>
   <script type="script" src="node_modules/jquery/dist/jquery.min.js"></script>
@@ -55,12 +60,21 @@
     document.querySelector('form').addEventListener('submit', submitForm);
 
     function submitForm(e){
+      document.getElementById("loading").style.display = "block";
       e.preventDefault();
       const name = document.querySelector('#name').value;
       const email = document.querySelector('#email').value;
       const mob = document.querySelector('#mob').value;
       var user = [name, email, mob];
       ipcRenderer.send('new_user', user);
+      setTimeout(hide,1000);
+      function hide(){
+        document.getElementById("loading").style.display = "none";
+        let node = document.createElement("h4");
+          let textnode = document.createTextNode( `DONE`);
+          node.appendChild(textnode);
+          document.getElementById("add2").appendChild(node);
+      }
     }
   </script>
 </body>
